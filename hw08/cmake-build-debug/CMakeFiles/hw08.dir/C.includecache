@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/dasomeom/Shared/2110Circuits/hw08/list.c
+stdlib.h
+-
+stdio.h
+-
+list.h
+/Users/dasomeom/Shared/2110Circuits/hw08/list.h
+
+/Users/dasomeom/Shared/2110Circuits/hw08/list.h
+person.h
+/Users/dasomeom/Shared/2110Circuits/hw08/person.h
+
+/Users/dasomeom/Shared/2110Circuits/hw08/person.h
+

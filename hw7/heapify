@@ -1,0 +1,117 @@
+heapify
+    ;AND R4, R4, 0    ;
+    ;ADD R4, R4, 15
+
+    ADD R6, R6, -3   ;initialize space for everything
+    STR R7, R6, 1    ;store RA
+    STR R5, R6, 0    ;store old FP
+    ADD R5, R6, -1 ;
+    ADD R6, R6, -5 ;initialize space for registers
+    STR R0, R6, 4 ;save R0
+    STR R1, R6, 3 ;save R1
+    STR R2, R6, 2 ;save R2
+    STR R3, R6, 1 ;save R3
+    STR R4, R6, 0 ;save R4
+
+    LDR R0, R5, 4 ; array
+    LDR R1, R5, 5 ; length
+    NOT R1, R1    ; !length 
+    ADD R1, R1, 1 ; -length
+    LDR R2, R5, 6 ; index
+    ADD R2, R0, R2; arr[i]= largest
+    LDR R3, R2, 0 ;
+    LDR R2, R5, 6 ;
+
+leftstart
+    ADD R2, R2, R2
+    ADD R2, R2, 1
+    ADD R4, R1, R2
+    BRZP RIGHTDONE ; LC index > length - alldone
+
+    ADD R1, R0, R2; R1 -leftchild address
+    LDR R4, R1, 0 ; R4 = left child value
+    NOT R3, R3    ; R3 = root 
+    ADD R3, R3, 1 ; R3 = -root
+    ADD R1, R3, R4
+    BRNZ RIGHT    ; root>LC. go compare root RC.else keeping going
+
+lefttoright
+    ;compare RC index and arr.length
+    ADD R2, R2, 1 ; R2 - right child index
+    LDR R1, R5, 5 ; length
+    NOT R1, R1
+    ADD R1, R1, 1 ; R1 = -length
+    ADD R1, R1, R2; 
+    BRZP RIGHTDONE; RC index >=length. alldone.
+
+    ADD R1, R0, R2; R1 - rightchild address
+    LDR R1, R1, 0 ; R1 = right child value
+    NOT R1, R1
+    ADD R1, R1, 1 ; R1 = -RCV
+    ADD R3, R1, R4;
+    BRN RCB   ; RC > LC, RC largest
+    BRP LCB   ; LC > RC LC largest 
+
+RCB
+    ADD R1, R0, R2; R1 - rightchild address
+    BR SWAP
+LCB 
+    ADD R1, R0, R2;
+    ADD R1, R1, -1 ; R1 - leftchild address
+    BR SWAP
+
+RIGHT
+    LDR R1, R5, 5 ; R1 = length
+    NOT R1, R1
+    ADD R1, R1, 1 ; R1 = -length
+    LDR R2, R5, 6 ; R2 = i
+    ADD R2, R2, R2;
+    ADD R2, R2, 2 ; R2 = 2*i+2
+    ADD R4, R1, R2;
+    BRZP RIGHTDONE
+
+    ADD R1, R0, R2; R1 child address
+    LDR R4, R1, 0 ; R1 child value
+    LDR R3, R5, 6 ; root index
+    ADD R3, R0, R3; root address
+    LDR R3, R3, 0 ; root value
+    NOT R3, R3
+    ADD R3, R3, 1 ; neg R3
+    ADD R1, R3, R4
+    BRNZ RIGHTDONE
+    ADD R1, R0, R2; R1 child address
+
+SWAP
+    LDR R4, R5, 6   ; reload root index
+    ADD R4, R0, R4  ; root address
+    LDR R3, R4, 0   ; root value
+    LDR R2, R1, 0   ;
+    STR R3, R1, 0   ; rootval to child address
+    STR R2, R4, 0   ; child to rootadrs
+;start preparing subheapify 
+    ADD R6, R6, -3  ;
+    LDR R0, R5, 4   ; array
+    LDR R2, R5, 5   ; length
+    ; use child index R4 in the subheapify
+    STR R2, R6, 1   ; length store
+    STR R0, R6, 0   ; array store
+    ADD R3, R0, 0   ;
+    NOT R3, R3      ;
+    ADD R3, R3, 1   ;
+    ADD R1, R3, R1  ;   
+    STR R1, R6, 2   ;
+    JSR heapify
+
+    ADD R6, R6, 2   ; point top of register stack
+
+RIGHTDONE
+    LDR R4, R5, -4 ;restore R4
+    LDR R3, R5, -3 ;restore R3
+    LDR R2, R5, -2 ;restore R2
+    LDR R1, R5, -1 ;restore R1
+    LDR R0, R5, -0 ;restore R0
+    ADD R6, R5, 0 ;bring R6 back down to R5
+    LDR R5, R6, 1 ;restore old frame pointer
+    LDR R7, R6, 2 ;restore return address
+    ADD R6, R6, 3 ;have R6 point to the return value
+    RET

@@ -1,0 +1,65 @@
+cmake_minimum_required(VERSION 3.12)
+project(hw09)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(.)
+include_directories(images)
+include_directories(tester)
+
+add_executable(hw09
+        images/austinbear.c
+        images/austinbear.h
+        images/azul.c
+        images/azul.h
+        images/tv_tester.c
+        images/tv_tester.h
+        tester/actual/placeholder.txt
+        tester/diff/placeholder.txt
+        tester/expected/check_if_screen_size_was_used_correctly.bmp
+        tester/expected/combination_cems_almost_turkish_flag.bmp
+        tester/expected/drawCircle_outofbounds.bmp
+        tester/expected/drawCircle_simple.bmp
+        tester/expected/drawFilledCircle_outofbounds.bmp
+        tester/expected/drawFilledCircle_simple.bmp
+        tester/expected/drawFilledPolygon_outofbounds.bmp
+        tester/expected/drawFilledPolygon_star.bmp
+        tester/expected/drawFilledPolygon_triangle.bmp
+        tester/expected/drawFilledRectangle_outofbounds.bmp
+        tester/expected/drawFilledRectangle_simple.bmp
+        tester/expected/drawImage_fullscreen_outofbounds.bmp
+        tester/expected/drawImage_fullscreen_simple.bmp
+        tester/expected/drawImage_fullscreen_withfilter.bmp
+        tester/expected/drawImage_small_outofbounds.bmp
+        tester/expected/drawImage_small_simple.bmp
+        tester/expected/drawImage_small_withfilter.bmp
+        tester/expected/drawLine_horizontal.bmp
+        tester/expected/drawLine_negativeslope.bmp
+        tester/expected/drawLine_outofbounds.bmp
+        tester/expected/drawLine_positiveslope.bmp
+        tester/expected/drawLine_vertical.bmp
+        tester/expected/drawPixel_outofbounds.bmp
+        tester/expected/drawPixel_simple.bmp
+        tester/expected/drawPolygon_outofbounds.bmp
+        tester/expected/drawPolygon_star.bmp
+        tester/expected/drawPolygon_triangle.bmp
+        tester/expected/drawRectangle_outofbounds.bmp
+        tester/expected/drawRectangle_simple.bmp
+        tester/expected/rotateImage_0.bmp
+        tester/expected/rotateImage_180.bmp
+        tester/expected/rotateImage_270.bmp
+        tester/expected/rotateImage_90.bmp
+        tester/expected/rotateImage_large_negative_angle.bmp
+        tester/expected/rotateImage_large_positive_angle.bmp
+        tester/graphics_suite.c
+        tester/graphics_suite.h
+        tester/Makefile
+        tester/qdbmp.c
+        tester/qdbmp.h
+        tester/tests.c
+        geometry.h
+        graphics.c
+        graphics.h
+        HW9.pdf
+        Makefile
+        sandbox.c)
